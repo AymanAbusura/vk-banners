@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VK Banner — HTML5 Demo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d0d14;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      padding: 40px;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+    }
+
+    h1 {
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      margin-bottom: 8px;
+    }
+
+    .label {
+      width: 100%;
+      text-align: center;
+      color: #4a90d9;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      opacity: 0.7;
+    }
+
+    /* ==================== BANNER 1 — 300×250 Medium Rectangle ==================== */
+    .banner-300x250 {
+      width: 300px;
+      height: 250px;
+      background: linear-gradient(135deg, #071e3d 0%, #1a1a3e 50%, #0d0d25 100%);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .banner-300x250 .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+    }
+    .banner-300x250 .orb1 {
+      width: 200px; height: 200px;
+      background: #0077ff;
+      top: -60px; right: -60px;
+      opacity: 0.35;
+    }
+    .banner-300x250 .orb2 {
+      width: 150px; height: 150px;
+      background: #5200ff;
+      bottom: -50px; left: -40px;
+      opacity: 0.3;
+    }
+
+    .banner-300x250 .vk-logo {
+      position: absolute;
+      top: 20px; left: 20px;
+      width: 36px; height: 36px;
+    }
+    .banner-300x250 .vk-logo svg {
+      width: 100%; height: 100%;
+    }
+
+    .banner-300x250 .tagline {
+      position: absolute;
+      top: 20px; right: 16px;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .banner-300x250 .headline {
+      position: absolute;
+      top: 72px; left: 20px; right: 20px;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    .banner-300x250 .headline span {
+      color: #4a90d9;
+    }
+
+    .banner-300x250 .sub {
+      position: absolute;
+      top: 148px; left: 20px; right: 20px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
+    .banner-300x250 .cta {
+      position: absolute;
+      bottom: 20px; left: 20px;
+      background: #0077ff;
+      color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .banner-300x250:hover .cta {
+      background: #1a8aff;
+      transform: scale(1.04);
+    }
+
+    .banner-300x250 .particles {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(74,144,217,0.6);
+    }
+
+    /* ==================== BANNER 2 — 728×90 Leaderboard ==================== */
+    .banner-728x90 {
+      width: 728px;
+      height: 90px;
+      background: #fff;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      border: 1px solid #e5e7eb;
+    }
+
+    .banner-728x90 .side-accent {
+      width: 6px;
+      height: 100%;
+      background: linear-gradient(180deg, #0077ff, #5200ff);
+      flex-shrink: 0;
+    }
+
+    .banner-728x90 .vk-mark {
+      width: 48px; height: 48px;
+      margin: 0 20px;
+      flex-shrink: 0;
+    }
+
+    .banner-728x90 .divider {
+      width: 1px; height: 50px;
+      background: #e5e7eb;
+      flex-shrink: 0;
+      margin-right: 20px;
+    }
+
+    .banner-728x90 .text-block {
+      flex: 1;
+    }
+    .banner-728x90 .text-block .heading {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a2e;
+      letter-spacing: -0.01em;
+    }
+    .banner-728x90 .text-block .heading span { color: #0077ff; }
+    .banner-728x90 .text-block .desc {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 3px;
+    }
+
+    .banner-728x90 .ticker {
+      display: flex;
+      gap: 8px;
+      margin: 0 20px;
+      flex-shrink: 0;
+    }
+    .ticker-item {
+      background: #f0f6ff;
+      border: 1px solid #c7deff;
+      color: #0077ff;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    .banner-728x90 .cta-lb {
+      background: #0077ff;
+      color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 12px 24px;
+      margin-right: 16px;
+      border-radius: 100px;
+      flex-shrink: 0;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.04em;
+    }
+    .banner-728x90:hover .cta-lb {
+      background: #005fcc;
+      transform: scale(1.03);
+    }
+
+    .banner-728x90 .sweep {
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      pointer-events: none;
+    }
+
+    /* ==================== BANNER 3 — 160×600 Wide Skyscraper ==================== */
+    .banner-160x600 {
+      width: 160px;
+      height: 600px;
+      background: linear-gradient(180deg, #0a0a1a 0%, #061730 40%, #0a0a1a 100%);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .banner-160x600 .top-bar {
+      width: 100%;
+      background: #0077ff;
+      padding: 12px 0;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .banner-160x600 .top-bar span {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.05em;
+    }
+
+    .banner-160x600 .sky-logo {
+      margin-top: 24px;
+      width: 44px; height: 44px;
+    }
+
+    .banner-160x600 .sky-headline {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 16px;
+      font-weight: 900;
+      color: #fff;
+      text-align: center;
+      line-height: 1.25;
+      padding: 20px 14px 0;
+      letter-spacing: -0.02em;
+    }
+    .banner-160x600 .sky-headline span { color: #4a90d9; }
+
+    .banner-160x600 .sky-list {
+      margin-top: 20px;
+      padding: 0 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    .sky-list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      color: rgba(255,255,255,0.65);
+      font-size: 9.5px;
+      line-height: 1.4;
+    }
+    .sky-list-item::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #0077ff;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .banner-160x600 .sky-divider {
+      width: 80%;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 20px 0;
+    }
+
+    .banner-160x600 .sky-tag {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .banner-160x600 .sky-cta {
+      position: absolute;
+      bottom: 20px;
+      background: #0077ff;
+      color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.15s;
+      text-align: center;
+    }
+    .banner-160x600:hover .sky-cta {
+      background: #1a8aff;
+      transform: scale(1.05);
+    }
+
+    .banner-160x600 .sky-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(50px);
+    }
+    .sky-orb1 { width:120px;height:120px; background:#0077ff; top:200px; left:-40px; opacity:0.2; }
+    .sky-orb2 { width:100px;height:100px; background:#5200ff; bottom:150px; right:-30px; opacity:0.2; }
+
+    /* ==================== BANNER 4 — 320×50 Mobile Banner ==================== */
+    .banner-320x50 {
+      width: 320px;
+      height: 50px;
+      background: linear-gradient(90deg, #0a1628, #071e3d);
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .banner-320x50 .mob-accent {
+      width: 4px;
+      height: 100%;
+      background: #0077ff;
+      flex-shrink: 0;
+    }
+    .banner-320x50 .mob-logo {
+      width: 26px; height: 26px;
+      margin: 0 10px;
+      flex-shrink: 0;
+    }
+    .banner-320x50 .mob-text {
+      flex: 1;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+    }
+    .banner-320x50 .mob-text small {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 8px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 2px;
+      letter-spacing: 0;
+    }
+    .banner-320x50 .mob-cta {
+      background: #0077ff;
+      color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 8px;
+      font-weight: 700;
+      padding: 7px 12px;
+      margin-right: 8px;
+      border-radius: 100px;
+      flex-shrink: 0;
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+    }
+    .banner-320x50:hover .mob-cta { background: #1a8aff; }
+    .banner-320x50 .mob-sweep {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 60%, rgba(74,144,217,0.08) 100%);
+      pointer-events: none;
+    }
+
+    .size-info {
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+      margin-top: 6px;
+      letter-spacing: 0.08em;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .banner-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+
+</head>
+<body>
+  <h1>VK HTML5 Banners — Demo</h1>
+  <p class="label">Пример вёрстки баннеров · CSS анимации · GSAP · Микроинтеракции</p>
+
+  <!-- BANNER 1: 300x250 -->
+  <div class="banner-wrapper">
+    <div class="banner-300x250" id="b1">
+      <div class="bg-orb orb1" id="orb1"></div>
+      <div class="bg-orb orb2" id="orb2"></div>
+      <canvas class="particles" id="particles1"></canvas>
+
+      <div class="vk-logo">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#0077FF"/>
+          <path d="M25.5 34C16.4 34 11.2 27.8 11 17H15.6C15.8 25.1 19.4 28.6 22.3 29.3V17H26.6V23.5C29.5 23.2 32.5 20 33.5 17H37.8C37 21 34.1 24.2 32 25.5C34.1 26.6 37.4 29.4 38.7 34H34C33 31 30.5 28.6 26.6 28.3V34H25.5Z" fill="white"/>
+        </svg>
+      </div>
+
+      <div class="tagline">VK Team · 2025</div>
+
+      <div class="headline" id="headline1">
+        Место встречи<br><span>лучших</span>
+      </div>
+
+      <div class="sub" id="sub1">
+        Вёрстка HTML5-баннеров.<br>
+        Анимации. GSAP. Реклама.
+      </div>
+
+      <div class="cta" id="cta1">Присоединиться →</div>
+    </div>
+    <p class="size-info">300×250 · Medium Rectangle</p>
+  </div>
+
+  <!-- BANNER 3: 160x600 -->
+  <div class="banner-wrapper">
+    <div class="banner-160x600" id="b3">
+      <div class="sky-orb sky-orb1"></div>
+      <div class="sky-orb sky-orb2"></div>
+
+      <div class="top-bar"><span>VK</span></div>
+
+      <div class="sky-logo">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="10" fill="#0077FF"/>
+          <path d="M25.5 34C16.4 34 11.2 27.8 11 17H15.6C15.8 25.1 19.4 28.6 22.3 29.3V17H26.6V23.5C29.5 23.2 32.5 20 33.5 17H37.8C37 21 34.1 24.2 32 25.5C34.1 26.6 37.4 29.4 38.7 34H34C33 31 30.5 28.6 26.6 28.3V34H25.5Z" fill="white"/>
+        </svg>
+      </div>
+
+      <div class="sky-headline">Место<br>встречи<br><span>лучших</span></div>
+
+      <div class="sky-list" id="skyList">
+        <div class="sky-list-item">HTML5-баннеры для рекламных кампаний</div>
+        <div class="sky-list-item">CSS/JS анимации и микроинтеракции</div>
+        <div class="sky-list-item">GSAP, anime.js, CSS transitions</div>
+        <div class="sky-list-item">Адаптация под форматы VK Ads</div>
+        <div class="sky-list-item">Работа с Figma и оптимизация ассетов</div>
+      </div>
+
+      <div class="sky-divider"></div>
+      <div class="sky-tag">Верстальщик · HTML5</div>
+
+      <div class="sky-cta" id="skyCta">Откликнуться →</div>
+    </div>
+    <p class="size-info">160×600 · Wide Skyscraper</p>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div style="display:flex;flex-direction:column;gap:24px;align-items:center">
+
+    <!-- BANNER 2: 728x90 -->
+    <div class="banner-wrapper">
+      <div class="banner-728x90" id="b2">
+        <div class="side-accent"></div>
+        <div class="vk-mark">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+            <rect width="48" height="48" rx="10" fill="#0077FF"/>
+            <path d="M25.5 34C16.4 34 11.2 27.8 11 17H15.6C15.8 25.1 19.4 28.6 22.3 29.3V17H26.6V23.5C29.5 23.2 32.5 20 33.5 17H37.8C37 21 34.1 24.2 32 25.5C34.1 26.6 37.4 29.4 38.7 34H34C33 31 30.5 28.6 26.6 28.3V34H25.5Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="divider"></div>
+        <div class="text-block">
+          <div class="heading">Вёрстальщик HTML5-баннеров в <span>VK Team</span></div>
+          <div class="desc">GSAP · CSS3 · JavaScript ES6+ · Figma · VK Ads</div>
+        </div>
+        <div class="ticker" id="ticker">
+          <div class="ticker-item">Анимации</div>
+          <div class="ticker-item">Интерактив</div>
+          <div class="ticker-item">Офис/Гибрид</div>
+        </div>
+        <div class="cta-lb">Откликнуться</div>
+        <div class="sweep" id="sweep2"></div>
+      </div>
+      <p class="size-info">728×90 · Leaderboard</p>
+    </div>
+
+    <!-- BANNER 4: 320x50 -->
+    <div class="banner-wrapper">
+      <div class="banner-320x50" id="b4">
+        <div class="mob-accent"></div>
+        <div class="mob-logo">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="26" height="26">
+            <rect width="48" height="48" rx="10" fill="#0077FF"/>
+            <path d="M25.5 34C16.4 34 11.2 27.8 11 17H15.6C15.8 25.1 19.4 28.6 22.3 29.3V17H26.6V23.5C29.5 23.2 32.5 20 33.5 17H37.8C37 21 34.1 24.2 32 25.5C34.1 26.6 37.4 29.4 38.7 34H34C33 31 30.5 28.6 26.6 28.3V34H25.5Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="mob-text">
+          Верстальщик в VK Team
+          <small>HTML5 · CSS3 · GSAP · JS</small>
+        </div>
+        <div class="mob-cta">Подать заявку</div>
+        <div class="mob-sweep"></div>
+      </div>
+      <p class="size-info">320×50 · Mobile Banner</p>
+    </div>
+
+  </div>
+
+<script>
+  // ===== BANNER 1: 300x250 — GSAP Intro Animation =====
+  const tl1 = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  tl1
+    .from('#b1 .vk-logo', { opacity: 0, scale: 0.5, duration: 0.5 })
+    .from('#headline1', { opacity: 0, y: 20, duration: 0.6 }, '-=0.2')
+    .from('#sub1', { opacity: 0, y: 15, duration: 0.5 }, '-=0.3')
+    .from('#cta1', { opacity: 0, y: 10, duration: 0.4 }, '-=0.2')
+    .from('#b1 .tagline', { opacity: 0, duration: 0.4 }, '-=0.3');
+
+  // Orb float animation
+  gsap.to('#orb1', { y: 15, x: -10, duration: 3, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+  gsap.to('#orb2', { y: -10, x: 8, duration: 3.5, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0.5 });
+
+  // Particle canvas
+  const canvas = document.getElementById('particles1');
+  const ctx = canvas.getContext('2d');
+  canvas.width = 300; canvas.height = 250;
+  const pts = Array.from({length: 18}, () => ({
+    x: Math.random()*300, y: Math.random()*250,
+    r: Math.random()*2+0.5,
+    vx: (Math.random()-0.5)*0.4,
+    vy: (Math.random()-0.5)*0.4,
+    opacity: Math.random()*0.6+0.2
+  }));
+  function drawParticles() {
+    ctx.clearRect(0,0,300,250);
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0||p.x>300) p.vx*=-1;
+      if(p.y<0||p.y>250) p.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = `rgba(74,144,217,${p.opacity})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+
+  // Hover interaction
+  document.getElementById('b1').addEventListener('mouseenter', () => {
+    gsap.to('#headline1', { y: -4, duration: 0.3, ease: 'power2.out' });
+  });
+  document.getElementById('b1').addEventListener('mouseleave', () => {
+    gsap.to('#headline1', { y: 0, duration: 0.3, ease: 'power2.out' });
+  });
+
+  // ===== BANNER 2: 728x90 — Shimmer sweep =====
+  const tl2 = gsap.timeline({ defaults: { ease: 'power2.out' } });
+  tl2
+    .from('#b2 .vk-mark', { opacity: 0, x: -20, duration: 0.5 })
+    .from('#b2 .text-block', { opacity: 0, x: -15, duration: 0.5 }, '-=0.2')
+    .from('#b2 .ticker .ticker-item', { opacity: 0, y: 10, stagger: 0.1, duration: 0.4 }, '-=0.1')
+    .from('#b2 .cta-lb', { opacity: 0, scale: 0.9, duration: 0.4 }, '-=0.1');
+
+  // Sweep shimmer loop
+  gsap.to('#sweep2', {
+    left: '140%', duration: 1.8,
+    repeat: -1, repeatDelay: 3,
+    ease: 'power1.inOut'
+  });
+
+  // ===== BANNER 3: 160x600 — Staggered list reveal =====
+  const tl3 = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  tl3
+    .from('#b3 .top-bar', { scaleX: 0, duration: 0.5, transformOrigin: 'left' })
+    .from('#b3 .sky-logo', { opacity: 0, scale: 0.5, duration: 0.5 }, '-=0.1')
+    .from('#b3 .sky-headline', { opacity: 0, y: 20, duration: 0.6 }, '-=0.2')
+    .from('#skyList .sky-list-item', { opacity: 0, x: -15, stagger: 0.12, duration: 0.4 }, '-=0.3')
+    .from('#b3 .sky-tag', { opacity: 0, duration: 0.4 }, '-=0.1')
+    .from('#skyCta', { opacity: 0, y: 10, duration: 0.4 }, '-=0.2');
+
+  // Pulsing CTA
+  gsap.to('#skyCta', {
+    boxShadow: '0 0 20px rgba(0,119,255,0.5)',
+    duration: 1,
+    repeat: -1, yoyo: true, ease: 'sine.inOut',
+    delay: 2
+  });
+
+  // ===== BANNER 4: 320x50 — Quick slide in =====
+  gsap.from('#b4 .mob-text', { opacity: 0, x: -10, duration: 0.5, delay: 0.3, ease: 'power2.out' });
+  gsap.from('#b4 .mob-cta', { opacity: 0, scale: 0.8, duration: 0.4, delay: 0.6, ease: 'back.out(2)' });
+
+  // Click tracking simulation
+  document.querySelectorAll('[id^="b"]').forEach(b => {
+    b.addEventListener('click', () => {
+      console.log('[VK Banner] Click event fired · banner:', b.id);
+      gsap.to(b, { scale: 0.97, duration: 0.1, yoyo: true, repeat: 1 });
+    });
+  });
+</script>
+
+</body>
+</html>
